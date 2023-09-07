@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bsuglwmmr3lg7"
-path="res://.godot/imported/Stone_Walls_Variation_Purple.png-a13d20ea9a43a3398fb69bb97fdf996b.ctex"
+path="res://.godot/imported/Stone_Walls_Variation_Purple.png-c715490989989c07a8acfba093d738ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Dungeon_Generation/Stone_Walls_Variation_Purple.png"
-dest_files=["res://.godot/imported/Stone_Walls_Variation_Purple.png-a13d20ea9a43a3398fb69bb97fdf996b.ctex"]
+source_file="res://Graphics/Stone_Walls_Variation_Purple.png"
+dest_files=["res://.godot/imported/Stone_Walls_Variation_Purple.png-c715490989989c07a8acfba093d738ae.ctex"]
 
 [params]
 
