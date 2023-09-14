@@ -1,13 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://lt15u3a40dd1"]
+[gd_scene load_steps=3 format=3 uid="uid://lt15u3a40dd1"]
 
 [ext_resource type="Script" path="res://Scripts/Card.gd" id="1_ijim1"]
+[ext_resource type="Texture2D" uid="uid://ui2v0vl5cvao" path="res://Graphics/Old_Characters.png" id="2_pv04n"]
 
 [node name="Card" type="Node2D"]
 script = ExtResource("1_ijim1")
 
 [node name="Front" type="Sprite2D" parent="."]
+texture = ExtResource("2_pv04n")
+hframes = 7
+vframes = 8
+frame = 8
 
 [node name="Back" type="Sprite2D" parent="."]
+texture = ExtResource("2_pv04n")
+hframes = 7
+vframes = 8
+frame = 49
 
 [node name="Extra" type="Sprite2D" parent="."]
 

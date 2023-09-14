@@ -5,10 +5,35 @@
 [node name="Deck" type="Node2D"]
 script = ExtResource("1_5bp1r")
 
-[node name="Cards" type="Node2D" parent="."]
+[node name="Deck" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
 
-[node name="Discard" type="Node2D" parent="."]
+[node name="Hand" type="Label" parent="."]
+offset_left = 2.0
+offset_top = 25.0
+offset_right = 42.0
+offset_bottom = 48.0
 
-[node name="Banished" type="Node2D" parent="."]
+[node name="Discard" type="Label" parent="."]
+offset_top = 51.0
+offset_right = 40.0
+offset_bottom = 74.0
 
-[node name="Hand" type="Node2D" parent="."]
+[node name="Deck_Pile" type="Node2D" parent="."]
+position = Vector2(50, 500)
+
+[node name="Discard_Pile" type="Node2D" parent="."]
+position = Vector2(50, 400)
+
+[node name="Banished_Pile" type="Node2D" parent="."]
+position = Vector2(50, 300)
+
+[node name="Hand_Pile" type="Node2D" parent="."]
+position = Vector2(500, 500)
+
+[node name="Temp1_Pile" type="Node2D" parent="."]
+
+[node name="Temp2_Pile" type="Node2D" parent="."]
+
+[node name="Shuffle_Pile" type="Node2D" parent="."]
