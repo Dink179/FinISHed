@@ -179,9 +179,9 @@ func play_card(card:Card, to_pile:Node2D) -> void:
 func move_to(card:Card, to_pile:Node2D) -> void:
 	# Moves a card to to_pile.
 	if to_pile == hand_pile:
-		card.flip(gb.s.FRONT, false)
+		card.flip(gb.crd_side.FRONT, false)
 	else:
-		card.flip(gb.s.BACK, false)
+		card.flip(gb.crd_side.BACK, false)
 	card.reparent(to_pile)
 	card.position = card.targ_pos # force position update?
 

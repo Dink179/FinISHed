@@ -21,13 +21,13 @@ offset_right = 40.0
 offset_bottom = 74.0
 
 [node name="Deck_Pile" type="Node2D" parent="."]
-position = Vector2(50, 500)
+position = Vector2(50, 1000)
 
 [node name="Discard_Pile" type="Node2D" parent="."]
-position = Vector2(50, 400)
+position = Vector2(50, 500)
 
 [node name="Banished_Pile" type="Node2D" parent="."]
-position = Vector2(50, 300)
+position = Vector2(50, 100)
 
 [node name="Hand_Pile" type="Node2D" parent="."]
 position = Vector2(500, 500)

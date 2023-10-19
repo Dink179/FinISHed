@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 gb="*res://Scripts/gb.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/scale=4.0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

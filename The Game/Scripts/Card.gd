@@ -9,21 +9,13 @@ class_name Card
 var value = 0
 var targ_pos: Vector2 = Vector2.ZERO
 
-
-enum s {
-	FRONT,
-	BACK,
-	EXTRA
-}
-
-var cur_state: int = s.BACK
+var cur_state: int = gb.crd_side.BACK
 
 
 func _ready():
-	flip(s.BACK, false)
+	flip(gb.crd_side.BACK, false)
 	targ_pos.x = 5*value
 	position = targ_pos
-	front.frame = 8+value
 	pass # Replace with function body.
 
 
@@ -35,19 +27,19 @@ func flip(new_state:int, animation:bool) -> void:
 	back.visible = false
 	extra.visible = false
 	match new_state:
-		s.FRONT: front.visible = true
-		s.BACK: back.visible = true
-		s.EXTRA: extra.visible = true
+		gb.crd_side.FRONT: front.visible = true
+		gb.crd_side.BACK: back.visible = true
+		gb.crd_side.EXTRA: extra.visible = true
 	if animation:
 		#! CALL ANIMATION
 		pass
-	if new_state == s.FRONT:
+	if new_state == gb.crd_side.FRONT:
 		position.y = -20
 	else:
 		position.y = 0
 		
 
 func play() -> void:
-	flip(s.FRONT, true)
+	flip(gb.crd_side.FRONT, true)
 	print(value, "!")
 
