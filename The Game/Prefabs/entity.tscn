@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bs5wjcmpk7mwt"]
 
-[ext_resource type="Script" path="res://Entity.gd" id="1_616jk"]
+[ext_resource type="Script" path="res://Scripts/Entity.gd" id="1_838i8"]
 [ext_resource type="Texture2D" uid="uid://bgj0s82eh0veq" path="res://Graphics/_Test_Char.png" id="2_mtxeu"]
 [ext_resource type="Texture2D" uid="uid://b2uhtvffpi30n" path="res://Graphics/Facing_Indicator.png" id="3_26ljx"]
 
@@ -46,7 +46,7 @@ _data = {
 
 [node name="Entity" type="Node2D"]
 position = Vector2(100, 100)
-script = ExtResource("1_616jk")
+script = ExtResource("1_838i8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8)

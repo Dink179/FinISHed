@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://chqltgbikciuc"]
+
+[ext_resource type="PackedScene" uid="uid://cja7toqket2t4" path="res://Prefabs/skill_shape.tscn" id="1_kmef2"]
+[ext_resource type="Script" path="res://Scripts/circle.gd" id="2_moojc"]
+[ext_resource type="Material" uid="uid://d1m3syoni3lg6" path="res://Prefabs/Skill_Shapes/Fire_Particles.tres" id="3_y856a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wv1ly"]
+radius = 4.0
+
+[node name="Circle" instance=ExtResource("1_kmef2")]
+position = Vector2(150, 150)
+script = ExtResource("2_moojc")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_wv1ly")
+
+[node name="GPUParticles2D" parent="." index="1"]
+amount = 100
+process_material = ExtResource("3_y856a")
+lifetime = 2.0
+
+[node name="Camera2D" type="Camera2D" parent="." index="2"]
+zoom = Vector2(5, 5)

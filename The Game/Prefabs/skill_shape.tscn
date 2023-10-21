@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cja7toqket2t4"]
+
+[ext_resource type="Script" path="res://Scripts/skill_shape.gd" id="1_70e8s"]
+
+[node name="Skill_Shape" type="Area2D"]
+script = ExtResource("1_70e8s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]

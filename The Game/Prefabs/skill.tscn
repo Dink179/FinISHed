@@ -1,10 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dflv8myn3umx0"]
+[gd_scene load_steps=3 format=3 uid="uid://dflv8myn3umx0"]
 
-[ext_resource type="Script" path="res://Skill.gd" id="1_pe4yr"]
+[ext_resource type="Script" path="res://Scripts/Skill.gd" id="1_bf82g"]
+[ext_resource type="PackedScene" uid="uid://cja7toqket2t4" path="res://Prefabs/skill_shape.tscn" id="2_h0cng"]
 
 [node name="Skill" type="Node2D"]
-script = ExtResource("1_pe4yr")
+script = ExtResource("1_bf82g")
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="Area2D" parent="." instance=ExtResource("2_h0cng")]
