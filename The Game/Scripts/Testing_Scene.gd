@@ -3,7 +3,7 @@ extends Node2D
 
 # Load other scenes from here:
 var autoload: bool = true
-var scene_name: String = "res://Prefabs/skill.tscn"
+var scene_name: String = "res://Prefabs/entity.tscn"
 
 
 func _ready():
