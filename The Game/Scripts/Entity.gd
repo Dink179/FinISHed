@@ -30,7 +30,7 @@ enum state {
 #	HEALING,	# Healing
 #	RNG_MLT,	# Range Multiplier
 #	AOE_MLT,	# AOE Multiplier
-#	MOV_MLT		# Move Multiplier
+#	MOV_MLT		# Move Multiplier #! dont need?
 #}
 
 var tween : Tween
