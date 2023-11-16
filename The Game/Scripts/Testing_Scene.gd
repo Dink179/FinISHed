@@ -1,9 +1,12 @@
 extends Node2D
 
+@onready var Character = preload("res://Prefabs/entity.tscn")
 
 # Load other scenes from here:
 var autoload: bool = true
-var scene_name: String = "res://Prefabs/entity.tscn"
+var scene_name: String = "res://Dungeon_Generation/ED_1_test.tscn"
+
+var character
 
 
 func _ready():

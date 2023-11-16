@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://db70n0qv8a31x"]
+[gd_scene load_steps=8 format=3 uid="uid://b770ikh1j2shc"]
 
-[ext_resource type="Texture2D" uid="uid://bsuglwmmr3lg7" path="res://Graphics/Stone_Walls_Variation_Purple.png" id="1_5f061"]
-[ext_resource type="PackedScene" uid="uid://bs5wjcmpk7mwt" path="res://Prefabs/entity.tscn" id="2_3n3e8"]
+[ext_resource type="Texture2D" uid="uid://bsuglwmmr3lg7" path="res://Graphics/Stone_Walls_Variation_Purple.png" id="1_r8pfh"]
+[ext_resource type="PackedScene" uid="uid://bs5wjcmpk7mwt" path="res://Prefabs/entity.tscn" id="2_3vl6m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lghdd"]
 resource_name = "Wall"
-texture = ExtResource("1_5f061")
+texture = ExtResource("1_r8pfh")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -389,6 +389,15 @@ terrain_set_0/terrain_0/name = "Wall"
 terrain_set_0/terrain_0/color = Color(1, 0.25098, 0.25098, 1)
 sources/1 = SubResource("TileSetAtlasSource_lghdd")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y6ts1"]
+size = Vector2(398, 381)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8fvp"]
+size = Vector2(541, 191)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sv01x"]
+size = Vector2(815, 574)
+
 [node name="Chunk" type="TileMap"]
 tile_set = SubResource("TileSet_tx2vl")
 format = 2
@@ -396,4 +405,18 @@ layer_0/tile_data = PackedInt32Array(131074, 1, 0, 131075, 65537, 0, 131076, 655
 
 [node name="Node2D" type="Node2D" parent="."]
 
-[node name="Entity" parent="." instance=ExtResource("2_3n3e8")]
+[node name="Entity" parent="." instance=ExtResource("2_3vl6m")]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(232, 223.5)
+shape = SubResource("RectangleShape2D_y6ts1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(576.5, 511.5)
+shape = SubResource("RectangleShape2D_p8fvp")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(440.5, 320)
+shape = SubResource("RectangleShape2D_sv01x")

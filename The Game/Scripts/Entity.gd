@@ -19,6 +19,8 @@ enum state {
 
 @onready var check_cast = $Check_Cast
 
+@onready var hitbox = $Hitbox
+
 @export var max_hp: int = 10 #!!
 
 @export var stats: Array = [0,0,0,0,0,1,1,1]
@@ -60,6 +62,7 @@ func _process(delta):
 			move(2)
 		if Input.is_action_just_pressed("ui_left"):
 			move(3)
+	print(hitbox.get_overlapping_areas())
 			
 
 func get_hit(skill:Skill) -> bool:
