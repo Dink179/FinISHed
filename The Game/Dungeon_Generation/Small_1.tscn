@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://ba1d0it7t5qx6"]
 
-[ext_resource type="Texture2D" uid="uid://bsuglwmmr3lg7" path="res://Graphics/Stone_Walls_Variation_Purple.png" id="1_b4vhp"]
+[ext_resource type="Texture2D" uid="uid://bsuglwmmr3lg7" path="res://Graphics/Stone_Walls_Variation_Purple.png" id="1_lav8s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lghdd"]
 resource_name = "Wall"
-texture = ExtResource("1_b4vhp")
+texture = ExtResource("1_lav8s")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -391,5 +391,6 @@ sources/1 = SubResource("TileSetAtlasSource_lghdd")
 [node name="Chunk" type="TileMap"]
 tile_set = SubResource("TileSet_tx2vl")
 format = 2
+layer_0/tile_data = PackedInt32Array(65537, 1, 0, 65538, 65537, 0, 65539, 65537, 0, 65540, 65537, 0, 65541, 65537, 0, 65542, 65537, 0, 65543, 65537, 0, 65544, 65537, 0, 65545, 131073, 0, 131081, 131073, 1, 196617, 131073, 1, 262153, 131073, 1, 327689, 131073, 1, 393225, 131073, 1)
 
 [node name="Node2D" type="Node2D" parent="."]
