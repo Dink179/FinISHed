@@ -24,7 +24,7 @@ gb="*res://Scripts/gb.gd"
 window/size/viewport_width=2000
 window/size/viewport_height=1250
 window/stretch/mode="canvas_items"
-window/stretch/scale=5.0
+window/stretch/scale=2.0
 
 [rendering]
 
