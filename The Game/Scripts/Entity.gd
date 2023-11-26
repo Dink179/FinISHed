@@ -112,6 +112,9 @@ func move(move_dir:int) -> bool:
 	# update animation to walk
 	# update position (tween??)
 
+#how enemies and non-leader charecters move
+#func seek():
+
 func animove(new_pos:Vector2) -> void:
 	tween = create_tween()
 	tween.tween_property(self, "position", new_pos, .5)
