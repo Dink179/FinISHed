@@ -47,3 +47,5 @@ enum stat {
 var level_exp_pool: int = 0
 
 var tile_size: int = 16
+
+var following: bool = false

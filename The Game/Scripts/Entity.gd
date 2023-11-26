@@ -24,6 +24,9 @@ enum state {
 @export var max_hp: int = 10 #!!
 
 @export var stats: Array = [0,0,0,0,0,1,1,1]
+
+#change later
+@export var temp_name: String = "follower"
 #enum stat {
 #	PHS_ATK,	# Physical Attack
 #	PHS_DEF,	# Physical Defense
@@ -62,6 +65,11 @@ func _process(delta):
 			move(2)
 		if Input.is_action_just_pressed("ui_left"):
 			move(3)
+		#F
+		if Input.is_action_just_pressed("follow") and temp_name == "follower":
+			gb.following =! gb.following
+			
+			
 	print(hitbox.get_overlapping_areas())
 			
 
@@ -114,6 +122,10 @@ func move(move_dir:int) -> bool:
 
 #how enemies and non-leader charecters move
 #func seek():
+
+#seeking another entity
+#func follow(entity):
+	
 
 func animove(new_pos:Vector2) -> void:
 	tween = create_tween()

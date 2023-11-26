@@ -1,6 +1,7 @@
 extends TileMap
 
 
+
 #This is where the chunk combination logic will live.
 
 
@@ -30,7 +31,7 @@ var all_chunks: Node2D
 
 var spawn: bool = true
 var accept_frame: bool = false
-var num_chunks: int = 1
+var num_chunks: int = 100
 var cur_chunks: int = 1 # always start with spawn
 var targ_pos: Vector2i = Vector2i.ZERO
 
