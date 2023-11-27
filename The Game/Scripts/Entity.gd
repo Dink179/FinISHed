@@ -70,7 +70,6 @@ func _process(delta):
 			gb.following =! gb.following
 			
 			
-	print(hitbox.get_overlapping_areas())
 			
 
 func get_hit(skill:Skill) -> bool:
