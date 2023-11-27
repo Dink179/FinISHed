@@ -8,6 +8,11 @@ var astar_grid: AStarGrid2D
 
 
 func _ready():
+	character = Character.instantiate()
+	add_child(character)
+	character.position = Vector2(16,16)
+	
+	
 	astar_grid = AStarGrid2D.new()
 	astar_grid.region = tile_map.get_used_rect()
 	astar_grid.cell_size = Vector2(16, 16)
@@ -18,10 +23,6 @@ func _ready():
 		if tile_map.get_cell_tile_data(0, cell).get_custom_data("Wall"):
 			astar_grid.set_point_solid(cell)
 	
-	
-	character = Character.instantiate()
-	add_child(character)
-	character.position = Vector2(16,16)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
