@@ -27,6 +27,11 @@ enum {
 	EXTRA_LAYER
 }
 
+enum theme {
+	BASIC,
+	ROCK
+}
+
 var all_chunks: Node2D
 
 var spawn: bool = true
@@ -61,12 +66,17 @@ var chunk_list: Array[Rect2i] = []
 
 var show_extra: bool = true
 
+var level_themes: int = theme.BASIC
+
+
 
 func _ready():
 	randomize()
 	if level_seed == 0:
 		level_seed = randi()%1000000
 	seed(level_seed)
+	
+	#load_theme(theme.BASIC)
 	
 	all_chunks = Chunks.instantiate()
 	add_child(all_chunks)
@@ -91,7 +101,14 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		show_extra = !show_extra
 		set_layer_enabled(EXTRA_LAYER, show_extra)
+
+
+func load_theme(theme_ind:int) -> void:
+	print("res://Graphics/Walls/" + theme.keys()[theme_ind] + "_Wall.png")
+	tile_set.get_source(1).texture = load("res://Graphics/Walls/" + theme.keys()[theme_ind] + "_Wall.png")
+	#tile_set.get_source(1).texture = load("res://Graphics/Walls" + theme.keys()[theme_ind] + "_Floor.png")
 	
+
 func get_collision(new_chunk:Rect2i, chunk_list:Array[Rect2i]) -> bool:
 	for rect in chunk_list:
 		if !(new_chunk.position.x + new_chunk.size.x <= rect.position.x
