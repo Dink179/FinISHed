@@ -76,7 +76,7 @@ func _ready():
 		level_seed = randi()%1000000
 	seed(level_seed)
 	
-	#load_theme(theme.BASIC)
+	load_theme(theme.BASIC)
 	
 	all_chunks = Chunks.instantiate()
 	add_child(all_chunks)
@@ -160,11 +160,11 @@ func get_chunk_entrances(chunk:TileMap, exit_dir:Vector2i) -> Array[Vector2i]:
 	var entrances: Array[Vector2i] = []
 	for cell_pos in chunk.get_used_cells(EXTRA_LAYER):
 		var entrance_dir: Vector2i = chunk.get_cell_tile_data(EXTRA_LAYER, cell_pos).get_custom_data("Exit_Dir")
-		if entrance_dir + exit_dir == Vector2i.ZERO:
+		if entrance_dir + exit_dir == Vector2i.ZERO and chunk.get_cell_tile_data(EXTRA_LAYER, cell_pos).get_custom_data("Exit_Weight") != 0:
 			entrances += [cell_pos]
 	return entrances
 
-func check_chunk(chunk, spawn_pos:Vector2i, exit_dir:Vector2i) -> Array:
+func check_chunk(chunk:TileMap, spawn_pos:Vector2i, exit_dir:Vector2i) -> Array:
 	# compare the target chunk area to the target draw location. Return selected entrance if the target chunk fits (does not collide)
 	# this will check all chunk exits that align with the exit_dir of the selected exit.
 	var chunk_entrances: Array[Vector2i] = get_chunk_entrances(chunk, exit_dir)
@@ -234,7 +234,7 @@ func add_exits(chunk:TileMap, spawn_pos:Vector2i, used_entrance:Vector2i) -> voi
 		var world_pos: Vector2i = spawn_pos + cell_pos - used_entrance
 		var cell_weight: float = chunk.get_cell_tile_data(EXTRA_LAYER, cell_pos).get_custom_data("Exit_Weight")
 		var exit_dir: Vector2i = chunk.get_cell_tile_data(EXTRA_LAYER, cell_pos).get_custom_data("Exit_Dir")
-		if exit_dir != Vector2i.ZERO and cell_pos != used_entrance:
+		if exit_dir != Vector2i.ZERO and cell_pos != used_entrance and cell_weight != 0:
 			#exits.push_front(world_pos + get_cell_tile_data(AIR_LAYER, world_pos).get_custom_data("Exit_Dir"))
 			#weights.push_front(cell_weight)
 			exit_list += [world_pos + exit_dir]
