@@ -1,12 +1,12 @@
 [gd_resource type="TileSet" load_steps=7 format=3 uid="uid://bq6epm85447ai"]
 
-[ext_resource type="Texture2D" uid="uid://cia6taq7ufm05" path="res://Graphics/Walls/BASIC_Wall.png" id="1_28tcg"]
+[ext_resource type="Texture2D" uid="uid://cia6taq7ufm05" path="res://Graphics/Level_Themes/Walls/BASIC_Wall.png" id="1_qqltk"]
 [ext_resource type="Texture2D" uid="uid://bx025xboatbtr" path="res://Graphics/Floor_Tile_1.png" id="2_gt227"]
 [ext_resource type="Texture2D" uid="uid://ciml03qlvtwwk" path="res://Graphics/Exit_Tiles.png" id="3_5hpym"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lghdd"]
 resource_name = "Wall"
-texture = ExtResource("1_28tcg")
+texture = ExtResource("1_qqltk")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0

@@ -1,0 +1,28 @@
+[gd_resource type="TileSet" format=3 uid="uid://krlpodbssis2"]
+
+[resource]
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Floor 1"
+terrain_set_0/terrain_0/color = Color(0, 0.470588, 0.0745098, 1)
+terrain_set_0/terrain_1/name = "Floor 2"
+terrain_set_0/terrain_1/color = Color(0.501961, 0.439216, 0.25098, 1)
+terrain_set_1/mode = 0
+terrain_set_1/terrain_0/name = "Side Wall"
+terrain_set_1/terrain_0/color = Color(0, 0.811765, 0.819608, 1)
+terrain_set_1/terrain_1/name = "Empty"
+terrain_set_1/terrain_1/color = Color(0.831373, 0, 0.0666667, 1)
+terrain_set_2/mode = 0
+terrain_set_2/terrain_0/name = "Top Wall"
+terrain_set_2/terrain_0/color = Color(1, 1, 1, 1)
+terrain_set_2/terrain_1/name = "Pit"
+terrain_set_2/terrain_1/color = Color(0.756863, 0.576471, 0, 1)
+terrain_set_2/terrain_2/name = "Empty"
+terrain_set_2/terrain_2/color = Color(0.866667, 0.145098, 0, 1)
+custom_data_layer_0/name = "Weight"
+custom_data_layer_0/type = 3
+custom_data_layer_1/name = "Direction"
+custom_data_layer_1/type = 6
+custom_data_layer_2/name = "Walkable"
+custom_data_layer_2/type = 1
+custom_data_layer_3/name = "Trigger"
+custom_data_layer_3/type = 1

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dodhjq7ujsx3w"]
+
+[ext_resource type="TileSet" uid="uid://krlpodbssis2" path="res://Dungeon_Generation/Default_Tileset.tres" id="1_tes5h"]
+
+[node name="Chunk" type="TileMap"]
+tile_set = ExtResource("1_tes5h")
+format = 2
+layer_0/name = "All"

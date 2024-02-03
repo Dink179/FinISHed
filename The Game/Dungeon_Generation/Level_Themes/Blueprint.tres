@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LevelTheme" load_steps=6 format=3 uid="uid://ddr75gi2gsbm1"]
+
+[ext_resource type="Texture2D" uid="uid://cia6taq7ufm05" path="res://Graphics/Level_Themes/Walls/BASIC_Wall.png" id="1_4mh7x"]
+[ext_resource type="Texture2D" uid="uid://bytd0ubo8qc0w" path="res://Graphics/Level_Themes/Extra/BLUEPRINT_Automated.png" id="1_7a7uu"]
+[ext_resource type="Script" path="res://Data_Models/Level_Theme.gd" id="1_8ybe6"]
+[ext_resource type="Texture2D" uid="uid://bxb65ydft2a7u" path="res://Graphics/Level_Themes/Floors/BLUEPRINT_Floor.png" id="2_p2iym"]
+[ext_resource type="Texture2D" uid="uid://ujsqchmqa8vy" path="res://Graphics/Level_Themes/Walls/BLUEPRINT_Wall.png" id="4_gkrrr"]
+
+[resource]
+script = ExtResource("1_8ybe6")
+name = "Blueprint"
+floor_textures = ExtResource("2_p2iym")
+wall_textures = ExtResource("4_gkrrr")
+air_textures = ExtResource("1_4mh7x")
+extra_textures = ExtResource("1_7a7uu")
