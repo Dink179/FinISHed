@@ -105,7 +105,7 @@ func _physics_process(delta):
 
 func load_theme(theme_ind:int) -> void:
 	print("res://Graphics/Walls/" + theme.keys()[theme_ind] + "_Wall.png")
-	tile_set.get_source(1).texture = load("res://Graphics/Walls/" + theme.keys()[theme_ind] + "_Wall.png")
+	tile_set.get_source(1).texture = load("res://Graphics/Level_Themes/Walls/" + theme.keys()[theme_ind] + "_Wall.png")
 	#tile_set.get_source(1).texture = load("res://Graphics/Walls" + theme.keys()[theme_ind] + "_Floor.png")
 	
 

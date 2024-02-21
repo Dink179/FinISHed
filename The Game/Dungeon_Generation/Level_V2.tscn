@@ -44,3 +44,10 @@ level_theme = ExtResource("2_u5etj")
 [node name="Test_Area" type="Area2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
