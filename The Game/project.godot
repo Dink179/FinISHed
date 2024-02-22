@@ -21,8 +21,8 @@ gb="*res://Scripts/gb.gd"
 
 [display]
 
-window/size/viewport_width=1000
-window/size/viewport_height=700
+window/size/viewport_width=2300
+window/size/viewport_height=1700
 window/stretch/mode="viewport"
 
 [input]

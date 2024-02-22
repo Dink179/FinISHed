@@ -10,7 +10,8 @@ extends TileMap
 @export var cam_speed:float = 5
 @export var level_seed:int = 0
 @export var level_theme:Level_Theme
-@export var num_chunks:int = 2
+@export var num_chunks:int = 10
+@export var branch_factor:float = .75
 
 enum {
 	SUMMARY_LAYER,
@@ -26,7 +27,7 @@ var show_extra:bool = true
 var loading:bool = false
 
 # load slower:
-var slow_load:float = 0
+var slow_load:float = .2
 var frame:int = 0
 
 #var exit_dict:Dictionary = {
@@ -94,8 +95,8 @@ func _physics_process(delta):
 	if Input.is_action_pressed("click"):
 		#set_cells_terrain_connect(WALL_LAYER,[local_to_map(get_global_mouse_position())], 1, 0)
 		label.text = str(local_to_map(get_global_mouse_position()))
-	# Handle lazy chunk generation:
 	
+	# Handle lazy chunk generation:
 	if loading:
 		if slow_load > 0:
 			if frame%(int(60*slow_load)) == 0:
@@ -164,12 +165,12 @@ func load_next_chunk(spawn_data:Array) -> bool:
 		var start_chunk: TileMap = all_chunks.get_child(randi_range(0,total_chunk_count-1)) #! limit this to only spawns later.
 		chunk_list += [start_chunk.get_used_rect()]
 		draw_chunk(start_chunk, Vector2i.ZERO, Vector2i.ZERO)
-		add_exits(start_chunk, Vector2i.ZERO, Vector2i.ZERO) #! use ZERO as entrance... top corner will not be used.. 
+		add_exits(start_chunk, Vector2i.ZERO, Vector2i.ZERO)
 		found = true
 		curr_chunks += 1
 	
 	reset_temp()
-	print(temp_weights)
+	print(temp_weights, "temp weights")
 	while !found: 
 		if temp_weights.size() == 0:
 			print("Not Good... Aborting")
@@ -181,7 +182,7 @@ func load_next_chunk(spawn_data:Array) -> bool:
 		targ_pos = exit_list[target_exit]
 
 		for exit in exit_list:
-			var targ_chunk: TileMap = all_chunks.get_child(randi_range(0,total_chunk_count-1))
+			var targ_chunk: TileMap = all_chunks.get_child(randi_range(0,total_chunk_count-1)) #! update to draw from chunk pools
 			var chunk_results: Array = check_chunk(targ_chunk, targ_pos, exit_dir_list[target_exit])
 			if chunk_results[0]:
 				use_exit(target_exit)
@@ -197,6 +198,8 @@ func load_next_chunk(spawn_data:Array) -> bool:
 		#! force force exit spawn.
 		print("Finishing...")
 		break_exit_walls()
+		#set_layer_enabled(WALL_LAYER, false)
+		#set_layer_enabled(AIR_LAYER, false)
 		fix_textures()
 		return false
 	return true
@@ -232,6 +235,7 @@ func get_entrance_positions(chunk:TileMap, exit_dir:Vector2i) -> Array[Vector2i]
 
 # Exit weight management:
 func add_exits(chunk:TileMap, spawn_pos:Vector2i, used_entrance:Vector2i) -> void:
+	print(used_entrance, "ENTRANCE")
 	for cell_pos in chunk.get_used_cells(SUMMARY_LAYER):
 		var exit_dir:Vector2i
 		# If it's an exit tile:
@@ -247,24 +251,28 @@ func add_exits(chunk:TileMap, spawn_pos:Vector2i, used_entrance:Vector2i) -> voi
 			if cell_pos != used_entrance and cell_weight != 0:
 				exit_list += [world_pos + exit_dir]
 			
-			if exit_weights == []:
-				exit_weights = [cell_weight]
-			else:
-				exit_weights += [cell_weight + exit_weights[-1]]
-			exit_dir_list += [exit_dir]
-	print(exit_list, "THIS")
+				if exit_weights == []:
+					exit_weights = [cell_weight]
+				else:
+					exit_weights += [cell_weight + exit_weights[-1]]
+				exit_dir_list += [exit_dir]
+	print(exit_list, "exit list")
 func use_exit(ind:int) -> void:
 	var weight: float = exit_weights[ind] - exit_weights[max(ind-1, 0)]
+	print(exit_weights, "weights before", exit_list)
 	exit_list.pop_at(ind)
 	exit_weights.pop_at(ind)
 	exit_dir_list.pop_at(ind)
 	for i in range(ind,exit_weights.size()):
 		exit_weights[i] -= weight
+	print(exit_weights, "weights after", exit_list)
+	for i in range(exit_weights.size()):
+		exit_weights[i] *= branch_factor
+	#! exit_weights[i] *= .5 # each room halves the previous weights.. could make that a var for branching.
 	reset_temp()
 func ban_exit(ind:int) -> void:
 	var weight: float = temp_weights[ind] - temp_weights[max(ind-1, 0)]
 	#temp_list.pop_at(ind)
-	temp += [exit_list[temp_inds[ind]]]
 	temp_weights.pop_at(ind)
 	temp_inds.pop_at(ind)
 	for i in range(ind,temp_weights.size()):
@@ -274,19 +282,23 @@ func reset_temp() -> void:
 	temp_weights = exit_weights.duplicate()
 	temp_inds = []
 	for i in range(len(exit_list)):
+		print("repopulating..", temp_weights.size()-1, " ", i)
+		print(exit_weights, "exit_weights, ", exit_list, "exit_list")
 		temp_inds += [i]
 			
 
 
 func draw_chunk(chunk:TileMap, spawn_pos:Vector2i, entrance_offset:Vector2i) -> void:
 	# copy the new chunk to the existing level tilemap.
-	create_hitbox(chunk, spawn_pos) #! debug
-	
+	#create_hitbox(chunk, spawn_pos-entrance_offset) #! debug
+	var test_walls:Array[Vector2i] = []
+	var test_pits:Array[Vector2i] = []
 	for cell_pos in chunk.get_used_cells(SUMMARY_LAYER):
-		var world_pos: Vector2i = spawn_pos-entrance_offset + cell_pos
+		var world_pos:Vector2i = spawn_pos-entrance_offset + cell_pos
 		var atlas_coord = chunk.get_cell_atlas_coords(SUMMARY_LAYER, cell_pos)
 		var cell_td:TileData = chunk.get_cell_tile_data(SUMMARY_LAYER, cell_pos)
 		var tile_type:String = cell_td.get_custom_data("Tile_Type")
+		
 		match tile_type:
 			"Floor":
 				set_cell(FLOOR_LAYER, world_pos, FLOOR_LAYER, Vector2i(0,0)) # floor
@@ -298,11 +310,13 @@ func draw_chunk(chunk:TileMap, spawn_pos:Vector2i, entrance_offset:Vector2i) -> 
 				set_cell(WALL_LAYER, world_pos, WALL_LAYER, Vector2i(0,8)) # side wall
 				set_cell(AIR_LAYER, world_pos, WALL_LAYER, Vector2i(0,0)) # top wall
 				connected_walls += [world_pos]
+				test_walls += [world_pos]
 			"Pit":
 				set_cell(FLOOR_LAYER, world_pos, WALL_LAYER, Vector2i(0,4)) # pit wall floor
 				set_cell(WALL_LAYER, world_pos, WALL_LAYER, Vector2i(11,11)) # empty side wall
 				set_cell(AIR_LAYER, world_pos, WALL_LAYER, Vector2i(25,3)) # empty top wall
 				connected_pits += [world_pos]
+				test_pits += [world_pos]
 			"Trap":
 				set_cell(FLOOR_LAYER, world_pos, FLOOR_LAYER, Vector2i(0,3)) # trap floor
 				set_cell(WALL_LAYER, world_pos, WALL_LAYER, Vector2i(11,11)) # empty side wall
@@ -331,11 +345,13 @@ func draw_chunk(chunk:TileMap, spawn_pos:Vector2i, entrance_offset:Vector2i) -> 
 				var atlas_x:int = 0
 				if world_pos == spawn_pos:
 					atlas_x += 4
-					print(Vector2i(atlas_coord.x+atlas_x, atlas_y), "THISSSSDFSDFSFD")
 				set_cell(EXTRA_LAYER, world_pos, EXTRA_LAYER, Vector2i(atlas_coord.x+atlas_x, atlas_y))
 				
 				#eventually use this to generate walls in unconnected exits.
 				connected_walls += [world_pos]
+				test_walls += [world_pos]
+	#fix_chunk_textures(chunk.get_used_rect().size, spawn_pos-entrance_offset, test_walls, test_pits)
+		
 
 #! Delete this:
 func create_hitbox(chunk:TileMap, final_spawn_pos:Vector2i) -> CollisionShape2D:
@@ -355,14 +371,34 @@ func break_exit_walls() -> void:
 		var exit_dir: Vector2i = get_cell_tile_data(EXTRA_LAYER, cell_pos).get_custom_data("Exit_Dir")
 		# make sure this extra tile is an exit, then make sure it's pointing at another exit:
 		if  exit_dir != Vector2i.ZERO and get_cell_tile_data(EXTRA_LAYER, cell_pos + exit_dir) != null and get_cell_tile_data(EXTRA_LAYER, cell_pos + exit_dir).get_custom_data("Exit_Dir") != Vector2i.ZERO:
-			print("got here!", cell_pos)
 			set_cell(WALL_LAYER, cell_pos, WALL_LAYER, Vector2i(11,11)) # empty side wall
 			set_cell(AIR_LAYER, cell_pos, WALL_LAYER, Vector2i(25,3)) # empty top wall
 			connected_walls.erase(cell_pos)
 			connected_pits.erase(cell_pos)
-			#set_cells_terrain_connect(WALL_LAYER, [cell_pos, cell_pos+exit_dir], 0, -1)
-			#erase_cell(WALL_LAYER, cell_pos)
-			#erase_cell(WALL_LAYER, cell_pos + exit_dir)
+			#set_cells_terrain_connect(WALL_LAYER, get_surrounding_cells(cell_pos), WALL_LAYER, 0)
+			#set_cells_terrain_connect(AIR_LAYER, get_surrounding_cells(cell_pos), AIR_LAYER, 0)
+
+func fix_chunk_textures(chunk_box:Vector2i, spawn_pos:Vector2i, connect_walls:Array[Vector2i], connect_pits:Array[Vector2i]) -> void:
+	# first pass at connected textures:
+	set_cells_terrain_connect(AIR_LAYER, connect_walls, 2,0, false) # connect top walls
+	set_cells_terrain_connect(WALL_LAYER, connect_walls, 1,0) # connect side walls
+	set_cells_terrain_connect(FLOOR_LAYER, connect_pits, 0,2, false) # connect pits
+	
+	for y in range(spawn_pos.y-1,spawn_pos.y+chunk_box.y+1):
+		for x in range(spawn_pos.x-1,spawn_pos.x+chunk_box.x+1):
+			
+			# alternate floor colors:
+			var cell_pos:Vector2i = Vector2i(x, y)
+			var atlas_coord:Vector2i = get_cell_atlas_coords(FLOOR_LAYER, cell_pos)
+			if get_cell_source_id(FLOOR_LAYER, cell_pos) == 1 and (x+y)%2 == 0 and (cell_pos.y >= spawn_pos.y and cell_pos.y <= spawn_pos.y+chunk_box.y-1) and (cell_pos.x >= spawn_pos.x and cell_pos.x <= spawn_pos.x+chunk_box.x-1):
+				# shift atlas by 3:
+				atlas_coord.x += 3
+				set_cell(FLOOR_LAYER, cell_pos, 1, atlas_coord)
+			
+			# updating truly empty cells fixes connection issues:
+			if get_cell_source_id(AIR_LAYER, Vector2i(x,y)) == -1:
+				set_cells_terrain_connect(AIR_LAYER, [Vector2i(x,y)], 2,0) # top walls
+				set_cells_terrain_connect(WALL_LAYER, [Vector2i(x,y)], 1,0) # always external so side walls #! this might not work... pits should be external too.
 
 func fix_textures() -> void:
 	# alternate floor colors:
