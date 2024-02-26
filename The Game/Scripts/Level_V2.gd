@@ -10,7 +10,7 @@ extends TileMap
 @export var cam_speed:float = 5
 @export var level_seed:int = 0
 @export var level_theme:Level_Theme
-@export var num_chunks:int = 10
+@export var num_chunks:int = 20
 @export var branch_factor:float = .75
 
 enum {
