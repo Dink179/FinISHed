@@ -1,30 +1,96 @@
-[gd_scene load_steps=5 format=3 uid="uid://lt15u3a40dd1"]
+[gd_scene load_steps=8 format=3 uid="uid://lt15u3a40dd1"]
 
 [ext_resource type="Script" path="res://Scripts/Card.gd" id="1_ijim1"]
-[ext_resource type="Texture2D" uid="uid://ydvvd2508cxd" path="res://Graphics/Card_Template_Front.png" id="2_fjjao"]
+[ext_resource type="Texture2D" uid="uid://lxqau7s3o3uw" path="res://Graphics/Cards/Base/Card_BG_Template.png" id="2_4ww2t"]
+[ext_resource type="Texture2D" uid="uid://depfcm4760ujb" path="res://Graphics/Cards/Card_Icons/Weapon_Type_Icons.png" id="3_m1rm5"]
+[ext_resource type="Texture2D" uid="uid://c8motdbqewsu7" path="res://Graphics/Cards/Card_Icons/7x8_Placeholder.png" id="3_nwotu"]
 [ext_resource type="Texture2D" uid="uid://cdmyf4cg4tfpu" path="res://Graphics/Card_Template_Back.png" id="3_vogi7"]
 [ext_resource type="Texture2D" uid="uid://d2a1o6x7f1cce" path="res://Graphics/Card_Template_Extra.png" id="4_4c8ng"]
+[ext_resource type="Texture2D" uid="uid://d1erjsc4sxh01" path="res://Graphics/Cards/Card_Icons/Sigil_Icons.png" id="4_6fa3b"]
 
 [node name="Card" type="Node2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_ijim1")
 
 [node name="Front" type="Sprite2D" parent="."]
-texture = ExtResource("2_fjjao")
+texture = ExtResource("2_4ww2t")
+centered = false
+
+[node name="Weapon_Icon" type="Sprite2D" parent="Front"]
+position = Vector2(5, 6)
+texture = ExtResource("3_m1rm5")
+centered = false
+hframes = 7
+vframes = 2
+
+[node name="Sigil_Icon" type="Sprite2D" parent="Front"]
+position = Vector2(5, 15)
+texture = ExtResource("4_6fa3b")
+centered = false
+hframes = 5
+vframes = 6
+
+[node name="Tier_Icon" type="Sprite2D" parent="Front"]
+position = Vector2(5, 24)
+texture = ExtResource("3_nwotu")
+centered = false
+
+[node name="Card_Icon_0" type="Sprite2D" parent="Front"]
+position = Vector2(57, 6)
+texture = ExtResource("3_nwotu")
+centered = false
+
+[node name="Card_Icon_1" type="Sprite2D" parent="Front"]
+position = Vector2(57, 15)
+texture = ExtResource("3_nwotu")
+centered = false
+
+[node name="Card_Icon_2" type="Sprite2D" parent="Front"]
+position = Vector2(57, 24)
+texture = ExtResource("3_nwotu")
+centered = false
+
+[node name="Image" type="Sprite2D" parent="Front"]
+position = Vector2(4, 25)
+scale = Vector2(8.71429, 3.625)
+texture = ExtResource("3_nwotu")
+centered = false
+
+[node name="Title" type="VBoxContainer" parent="Front"]
+offset_left = 13.0
+offset_top = 6.0
+offset_right = 56.0
+offset_bottom = 23.0
+
+[node name="Letters" type="HBoxContainer" parent="Front/Title"]
+layout_mode = 2
+
+[node name="Skill" type="VBoxContainer" parent="Front"]
+offset_left = 5.0
+offset_top = 57.0
+offset_right = 64.0
+offset_bottom = 70.0
+
+[node name="Letters" type="HBoxContainer" parent="Front/Skill"]
+layout_mode = 2
 
 [node name="Back" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("3_vogi7")
 
 [node name="Extra" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("4_4c8ng")
 
 [node name="Full_Hitbox" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Extra_Hitbox" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

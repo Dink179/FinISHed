@@ -2,9 +2,28 @@ extends Node2D
 
 class_name Card
 
+enum {
+	GENERAL,
+	DAGGER,
+	SPEAR,
+	HAMMER,
+	SHIELD,
+	STAFF,
+	GREATSWORD
+}
+enum {
+	NONE,
+	NECRO,
+	POWER,
+	MANA,
+	CRYSTAL,
+}
+
 @onready var front = $Front
 @onready var back = $Back
 @onready var extra = $Extra
+
+@export var weapon:int = GENERAL
 
 var value = 0
 var targ_pos: Vector2 = Vector2.ZERO
@@ -13,7 +32,8 @@ var cur_state: int = gb.crd_side.BACK
 
 
 func _ready():
-	flip(gb.crd_side.BACK, false)
+	$Front/Weapon_Icon.frame = weapon
+	#flip(gb.crd_side.BACK, false)
 	targ_pos.x = 5*value
 	position = targ_pos
 	pass # Replace with function body.
